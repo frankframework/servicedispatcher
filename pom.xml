@@ -13,16 +13,31 @@
     <module>example</module>
   </modules>
 
+  <scm>
+    <connection>scm:git:git://github.com/ibissource/ibis-servicedispatcher.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com:ibissource/ibis-servicedispatcher.git</developerConnection>
+    <url>https://github.com/ibissource/ibis-servicedispatcher</url>
+</scm>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <github.maven.repository>/Users/michiel/github/ibissource/mvn-repo</github.maven.repository>
   </properties>
-  <dependencies>
 
-  </dependencies>
+
   <build>
     <defaultGoal>install</defaultGoal>
   </build>
-  <repositories>
 
-  </repositories>
+  <distributionManagement>
+    <repository>
+      <id>repo</id>
+      <url>${github.maven.repository}/releases</url>
+    </repository>
+    <snapshotRepository>
+      <id>snapshot-repo</id>
+      <url>${github.maven.repository}/snapshots</url>
+    </snapshotRepository>
+  </distributionManagement>
+
 </project>

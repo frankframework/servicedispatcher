@@ -3,7 +3,7 @@
   <parent>
     <groupId>nl.nn</groupId>
     <artifactId>ibis-servicedispatcher-parent</artifactId>
-    <version>1.3</version>
+    <version>1.4-SNAPSHOT</version>
   </parent>
   <artifactId>ibis-servicedispatcher</artifactId>
   <packaging>jar</packaging>

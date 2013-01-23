@@ -3,7 +3,7 @@
   <parent>
     <groupId>nl.nn.adapterframework</groupId>
     <artifactId>service-dispatcher-parent</artifactId>
-    <version>1.3</version>
+    <version>1.4-SNAPSHOT</version>
   </parent>
   <artifactId>service-dispatcher</artifactId>
 </project>

@@ -6,32 +6,31 @@
  */
 package examples.dispatcher;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.HashMap;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import nl.nn.adapterframework.dispatcher.DispatcherException;
 import nl.nn.adapterframework.dispatcher.DispatcherManager;
 import nl.nn.adapterframework.dispatcher.DispatcherManagerFactory;
 import nl.nn.adapterframework.dispatcher.RequestProcessor;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.HashMap;
+
 /**
  * Example of a class that provides a service via the service dispatcher.
- * 
+ *
  * @author  Gerrit van Brakel
  * @version $Id: ServiceProvider.java,v 1.1 2007/04/26 07:21:54 europe\L190409 Exp $
  */
 public class ServiceProvider extends HttpServlet implements RequestProcessor {
 
-	public static String SERVICENAME="ExampleService"; 
+	public static String SERVICENAME="ExampleService";
 	private int timesCalled=0;
 	private DispatcherManager dm=null;
-	
+
 	public String processRequest(String correlationId, String message, HashMap requestContext) throws Exception {
 		timesCalled++;
 		String result="Your message with correlationId ["+correlationId+"] is message no ["+timesCalled+"] received and processed by the ServiceProvider";
@@ -44,7 +43,7 @@ public class ServiceProvider extends HttpServlet implements RequestProcessor {
 
 	public void init() throws ServletException {
 		super.init();
-		
+
 		try {
 			// obtain reference to DispatcherManager
 			dm = DispatcherManagerFactory.getDispatcherManager();
@@ -69,8 +68,8 @@ public class ServiceProvider extends HttpServlet implements RequestProcessor {
 		}
 		super.destroy();
 	}
-	
-	
+
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
 		PrintWriter pw = response.getWriter();
 		pw.print("<html>");

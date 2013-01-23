@@ -17,11 +17,11 @@
     <connection>scm:git:git://github.com/ibissource/ibis-servicedispatcher.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/ibissource/ibis-servicedispatcher.git</developerConnection>
     <url>https://github.com/ibissource/ibis-servicedispatcher</url>
-</scm>
+  </scm>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <github.maven.repository>/Users/michiel/github/ibissource/mvn-repo</github.maven.repository>
+    <github.maven.repository>file:///Users/michiel/github/ibissource/mvn-repo</github.maven.repository>
   </properties>
 
 

@@ -11,8 +11,8 @@
 
   <dependencies>
     <dependency>
-      <groupId>nl.nn</groupId>
-      <artifactId>ibis-servicedispatcher</artifactId>
+      <groupId>nl.nn.adapterframework</groupId>
+      <artifactId>service-dispatcher</artifactId>
       <version>${project.version}</version>
     </dependency>
       <dependency>

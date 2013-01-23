@@ -15,7 +15,7 @@
 
   <scm>
     <connection>scm:git:git://github.com/ibissource/ibis-servicedispatcher.git</connection>
-    <developerConnection>scm:git:ssh://git@github.com:ibissource/ibis-servicedispatcher.git</developerConnection>
+    <developerConnection>scm:git:ssh://git@github.com/ibissource/ibis-servicedispatcher.git</developerConnection>
     <url>https://github.com/ibissource/ibis-servicedispatcher</url>
 </scm>
 

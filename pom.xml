@@ -4,7 +4,7 @@
   <groupId>nl.nn.adapterframework</groupId>
   <artifactId>service-dispatcher-parent</artifactId>
   <packaging>pom</packaging>
-  <version>1.3-SNAPSHOT</version>
+  <version>1.3</version>
 
   <modules>
     <module>servicedispatcher</module>
@@ -15,7 +15,7 @@
     <connection>scm:git:git://github.com/ibissource/ibis-servicedispatcher.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/ibissource/ibis-servicedispatcher.git</developerConnection>
     <url>https://github.com/ibissource/ibis-servicedispatcher</url>
-    <tag>HEAD</tag>
+    <tag>REL-1.3</tag>
   </scm>
 
   <properties>

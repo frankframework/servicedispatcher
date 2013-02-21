@@ -1,6 +1,4 @@
-
-![TravisStatus](https://travis-ci.org/ibissource/ibis-servicedispatcher.png?branch=master)
-
+[![Build Status](https://travis-ci.org/ibissource/ibis-servicedispatcher.png?branch=master)](https://travis-ci.org/ibissource/ibis-servicedispatcher)
 ibis-servicedispatcher
 =======================
 Releases can be found here:

@@ -1,5 +1,5 @@
 /*
-   Copyright 2013 IbisSource Project
+   Copyright 2013, 2017 Nationale-Nederlanden
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -13,25 +13,6 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
-/*
- * $Log: DispatcherManagerImpl.java,v $
- * Revision 1.3  2011/07/18 08:33:01  L190409
- * avoid NPE in searching class loader hierarchy
- *
- * Revision 1.2  2011/02/24 15:17:47  L190409
- * more flexibile implementation.
- * It just requires to be somewhere on a classpath of a common classloader
- *
- * Revision 1.1  2007/04/25 15:38:53  europe\L190409
- * updated JavaDoc
- *
- * Revision 1.2  2006/07/14 14:11:21  europe\L190409
- * set contextClassLoader to that of listener, to run in right context
- *
- * Revision 1.1  2006/03/20 10:05:29  europe\L190409
- * first version
- *
- */
 package nl.nn.adapterframework.dispatcher;
 
 import java.lang.reflect.Method;
@@ -46,19 +27,19 @@ import java.util.HashMap;
  */
 class DispatcherManagerImpl implements DispatcherManager {
 
-    private static final boolean DEBUG=true;
-    
-    /**
-     *  This is effectively an instance of this class (although actually it may be instead a
-     *  java.lang.reflect.Proxy wrapping an instance from the original classloader).
-     */
-    private static DispatcherManager instance = null;
-    
+	private static final boolean DEBUG=true;
+
+	/**
+	 *  This is effectively an instance of this class (although actually it may be instead a
+	 *  java.lang.reflect.Proxy wrapping an instance from the original classloader).
+	 */
+	private static DispatcherManager instance = null;
+
 	/*
 	 * There can be only one - ie. even if the class is loaded in several different classloaders,
 	 * there will be only one instance of the object.
 	 */
-    static DispatcherManager getInstance(ClassLoader classLoader) throws DispatcherException {
+	static DispatcherManager getInstance(ClassLoader classLoader) throws DispatcherException {
 		DispatcherManager result = null;
 		ClassLoader parentclassLoader = classLoader.getParent();
 		// search for an instance as high in the classloader hierarchy as possible
@@ -89,42 +70,43 @@ class DispatcherManagerImpl implements DispatcherManager {
 		}
 		return result;
 	}
-    
-    /**
-     * Retrieve an instance of DispatcherManager from the original classloader. This is a true
-     * Singleton, in that there will only be one instance of this object in the virtual machine,
-     * even though there may be several copies of its class file loaded in different classloaders.
-     */
-    synchronized static DispatcherManager getInstance() throws DispatcherException {
-    	if (instance==null) {
-    		ClassLoader myClassLoader = DispatcherManagerImpl.class.getClassLoader();
-    		if (myClassLoader!=null) {
-    			instance = getInstance(myClassLoader);
-    		} else {
-    			System.out.println("DispatcherManagerImpl WARN  could not obtain ClassLoader for ["+ DispatcherManagerImpl.class.getName() + "], instantiated DispatcherManager might be too low in class path tree (not on a common branch)");
-    		}
-    		if (instance==null) {
-    			instance = new DispatcherManagerImpl();
-    		}
-    	}
-    	return instance;
-    }
 
-    private DispatcherManagerImpl() {
-    }
+	/**
+	 * Retrieve an instance of DispatcherManager from the original classloader. This is a true
+	 * Singleton, in that there will only be one instance of this object in the virtual machine,
+	 * even though there may be several copies of its class file loaded in different classloaders.
+	 */
+	synchronized static DispatcherManager getInstance() throws DispatcherException {
+		if (instance==null) {
+			ClassLoader myClassLoader = DispatcherManagerImpl.class.getClassLoader();
+			if (myClassLoader!=null) {
+				instance = getInstance(myClassLoader);
+			} else {
+				System.out.println("DispatcherManagerImpl WARN  could not obtain ClassLoader for ["+ DispatcherManagerImpl.class.getName() + "], instantiated DispatcherManager might be too low in class path tree (not on a common branch)");
+			}
+			if (instance==null) {
+				instance = new DispatcherManagerImpl();
+			}
+		}
+		return instance;
+	}
+
+	private DispatcherManagerImpl() {
+	}
 
 	private HashMap requestProcessorMap = new HashMap();
 
 	public String processRequest(String clientName, String message) throws DispatcherException, RequestProcessorException{
 		return processRequest(clientName, null, message, null);
 	}
-	
+
 	public String processRequest(String clientName, String message, HashMap requestContext) throws DispatcherException, RequestProcessorException{
 		return processRequest(clientName, null, message, requestContext);
 	}
-	
+
 	public String processRequest(String clientName, String correlationId, String message, HashMap requestContext) throws DispatcherException, RequestProcessorException {
 		RequestProcessor listener=null;
+
 		synchronized (requestProcessorMap) {
 			listener = (RequestProcessor)requestProcessorMap.get(clientName);
 		}
@@ -152,7 +134,5 @@ class DispatcherManagerImpl implements DispatcherManager {
 			requestProcessorMap.put(name, listener);
 		}
 	}
-
-	
 }
 

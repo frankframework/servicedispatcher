@@ -1,5 +1,5 @@
 /*
-   Copyright 2013 IbisSource Project
+   Copyright 2013, 2017 Nationale-Nederlanden
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -13,15 +13,6 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
-/*
- * $Log: PassThroughProxyHandler.java,v $
- * Revision 1.1  2007/04/25 15:38:52  europe\L190409
- * updated JavaDoc
- *
- * Revision 1.1  2006/03/20 10:05:30  europe\L190409
- * first version
- *
- */
 package nl.nn.adapterframework.dispatcher;
 
 import java.lang.reflect.InvocationHandler;
@@ -34,16 +25,19 @@ import java.lang.reflect.Method;
  * <p>
  * Note this is using class.getMethod, which will only work on public methods.
  *
- * @since   Ibis 4.4.5
+ * @since  Ibis 4.4.5
  * @author Inigo Surguy
  */
 class PassThroughProxyHandler implements InvocationHandler {
-    private final Object delegate;
-    public PassThroughProxyHandler(Object delegate) {
-        this.delegate = delegate;
-    }
-    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        Method delegateMethod = delegate.getClass().getMethod(method.getName(), method.getParameterTypes());
-        return delegateMethod.invoke(delegate, args);
-    }
+
+	private final Object delegate;
+
+	public PassThroughProxyHandler(Object delegate) {
+		this.delegate = delegate;
+	}
+
+	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+		Method delegateMethod = delegate.getClass().getMethod(method.getName(), method.getParameterTypes());
+		return delegateMethod.invoke(delegate, args);
+	}
 }

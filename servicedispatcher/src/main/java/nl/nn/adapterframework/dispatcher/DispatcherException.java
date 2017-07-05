@@ -1,5 +1,5 @@
 /*
-   Copyright 2013 IbisSource Project
+   Copyright 2013, 2017 Nationale-Nederlanden
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -13,15 +13,6 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
-/*
- * $Log: DispatcherException.java,v $
- * Revision 1.1  2007/04/25 15:38:53  europe\L190409
- * updated JavaDoc
- *
- * Revision 1.1  2006/03/20 10:05:29  europe\L190409
- * first version
- *
- */
 package nl.nn.adapterframework.dispatcher;
 
 /**
@@ -36,14 +27,16 @@ public class DispatcherException extends Exception {
 	public DispatcherException() {
 		super();
 	}
+
 	public DispatcherException(String message) {
 		super(message);
 	}
+
 	public DispatcherException(String message, Throwable cause) {
 		super(message, cause);
 	}
+
 	public DispatcherException(Throwable cause) {
 		super(cause);
 	}
-
 }

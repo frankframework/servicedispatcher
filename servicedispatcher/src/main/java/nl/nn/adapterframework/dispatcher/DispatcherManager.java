@@ -1,5 +1,5 @@
 /*
-   Copyright 2013 IbisSource Project
+   Copyright 2013, 2017 Nationale-Nederlanden
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -13,15 +13,6 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
-/*
- * $Log: DispatcherManager.java,v $
- * Revision 1.1  2007/04/25 15:38:53  europe\L190409
- * updated JavaDoc
- *
- * Revision 1.1  2006/03/20 10:05:29  europe\L190409
- * first version
- *
- */
 package nl.nn.adapterframework.dispatcher;
 
 import java.util.HashMap;
@@ -34,7 +25,6 @@ import java.util.HashMap;
  * @version $Id: DispatcherManager.java,v 1.1 2007/04/25 15:38:53 europe\L190409 Exp $
  */
 public interface DispatcherManager {
-
 
 	/**
 	 * Execute a request on a registered {@link RequestProcessor}.
@@ -80,7 +70,7 @@ public interface DispatcherManager {
 	 * 								wrapped exceptions originating from RequestProcessor.
 	 */
 	public String processRequest(String clientName, String message) throws DispatcherException, RequestProcessorException;
-	
+
 	/**
 	 * Register a {@link RequestProcessor} under a name. 
 	 * @param name
@@ -88,5 +78,4 @@ public interface DispatcherManager {
 	 * @throws DispatcherException
 	 */
 	public void register(String name, RequestProcessor listener) throws DispatcherException;
-	
 }

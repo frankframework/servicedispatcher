@@ -20,7 +20,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <github.maven.repository>file:///Users/michiel/github/ibissource/mvn-repo</github.maven.repository>
+    <ibissource.maven.repository.file>file:/C:/Data/Git/mvn-repo</ibissource.maven.repository.file>
   </properties>
 
 
@@ -32,8 +32,8 @@
         <artifactId>maven-release-plugin</artifactId>
         <version>2.4</version>
         <configuration>
-          <branchName>REL-${project.version}</branchName>
-          <tagNameFormat>REL-@{project.version}</tagNameFormat>
+          <branchName>${project.version}</branchName>
+          <tagNameFormat>v@{project.version}</tagNameFormat>
         </configuration>
       </plugin>
     </plugins>
@@ -42,11 +42,11 @@
   <distributionManagement>
     <repository>
       <id>repo</id>
-      <url>${github.maven.repository}/releases</url>
+      <url>${ibissource.maven.repository.file}/releases</url>
     </repository>
     <snapshotRepository>
       <id>snapshot-repo</id>
-      <url>${github.maven.repository}/snapshots</url>
+      <url>${ibissource.maven.repository.file}/snapshots</url>
     </snapshotRepository>
   </distributionManagement>
 

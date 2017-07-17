@@ -17,17 +17,18 @@ package nl.nn.adapterframework.dispatcher;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.StringTokenizer;
 
-/**
- * Actual implementation of {@link DispatcherManager}.
- * 
- * @author  Gerrit van Brakel
- * @version $Id: DispatcherManagerImpl.java,v 1.3 2011/07/18 08:33:01 L190409 Exp $
- */
-class DispatcherManagerImpl implements DispatcherManager {
+import nl.nn.adapterframework.dispatcher.DispatcherException;
 
+public class DllDispatcherManagerImpl implements DispatcherManager {
+
+	private DllDispatcherManagerInterface DllInstance;
 	private static final boolean DEBUG=true;
+	private List<String> availableServices = new ArrayList<String>();
 
 	/**
 	 *  This is effectively an instance of this class (although actually it may be instead a
@@ -46,10 +47,10 @@ class DispatcherManagerImpl implements DispatcherManager {
 		if (parentclassLoader != null) {
 			result = getInstance(parentclassLoader);
 			if (result == null) {
-				ClassLoader myClassLoader = DispatcherManagerImpl.class.getClassLoader();
+				ClassLoader myClassLoader = DllDispatcherManagerImpl.class.getClassLoader();
 				Class classInstance;
 				try {
-					classInstance = parentclassLoader.loadClass(DispatcherManagerImpl.class.getName());
+					classInstance = parentclassLoader.loadClass(DllDispatcherManagerImpl.class.getName());
 					// And call its getInstance method - this gives the correct
 					// instance of ourself
 					Method getInstanceMethod = classInstance.getDeclaredMethod("getInstance", new Class[] {});
@@ -78,61 +79,74 @@ class DispatcherManagerImpl implements DispatcherManager {
 	 */
 	synchronized static DispatcherManager getInstance() throws DispatcherException {
 		if (instance==null) {
-			ClassLoader myClassLoader = DispatcherManagerImpl.class.getClassLoader();
+			ClassLoader myClassLoader = DllDispatcherManagerImpl.class.getClassLoader();
 			if (myClassLoader!=null) {
 				instance = getInstance(myClassLoader);
 			} else {
-				System.out.println("DispatcherManagerImpl WARN  could not obtain ClassLoader for ["+ DispatcherManagerImpl.class.getName() + "], instantiated DispatcherManager might be too low in class path tree (not on a common branch)");
+				System.out.println("DllDispatcherManagerImpl WARN  could not obtain ClassLoader for ["+ DllDispatcherManagerImpl.class.getName() + "], instantiated DispatcherManager might be too low in class path tree (not on a common branch)");
 			}
 			if (instance==null) {
-				instance = new DispatcherManagerImpl();
+				instance = new DllDispatcherManagerImpl();
 			}
 		}
 		return instance;
 	}
 
-	private DispatcherManagerImpl() {
+	private DllDispatcherManagerImpl() throws DispatcherException {
+		try {
+			Class<?> dll = Class.forName("DllDispatcherManager");
+			DllInstance = (DllDispatcherManagerInterface) dll.newInstance();
+		}
+		catch (Exception e) {
+			throw new DispatcherException("Failed to initialize DllDispatcherManager!", e);
+		}
+		String services = DllInstance.getServices();
+		if(!services.isEmpty()) {
+			StringTokenizer st = new StringTokenizer(services, ",");  
+			while (st.hasMoreTokens()) {
+				register(st.nextToken());
+			}
+		}
+		else {
+			throw new DispatcherException("Successfully loaded DllDispatcherManager, but no services were found!");
+		}
 	}
 
-	private HashMap requestProcessorMap = new HashMap();
-
-	public String processRequest(String serviceName, String message) throws DispatcherException, RequestProcessorException{
+	@Override
+	public String processRequest(String serviceName, String message) throws DispatcherException, RequestProcessorException {
 		return processRequest(serviceName, null, message, null);
 	}
 
+	@Override
 	public String processRequest(String serviceName, String message, HashMap requestContext) throws DispatcherException, RequestProcessorException{
 		return processRequest(serviceName, null, message, requestContext);
 	}
 
+	@Override
 	public String processRequest(String serviceName, String correlationId, String message, HashMap requestContext) throws DispatcherException, RequestProcessorException {
-		RequestProcessor listener=null;
-
-		synchronized (requestProcessorMap) {
-			listener = (RequestProcessor)requestProcessorMap.get(serviceName);
-		}
-		if (listener==null) {
-			throw new DispatcherException("no RequestProcessor registered for ["+serviceName+"]");
-		}
 		try {
-			ClassLoader callersClassLoader = Thread.currentThread().getContextClassLoader(); 
-			try {
-				// set contextClassLoader, in order to really switch to the application called.
-				// This enables new classes to be loaded from proxy's own classpath, enabling
-				// Xalan extension functions, like 'build-node()' 
-				Thread.currentThread().setContextClassLoader(listener.getClass().getClassLoader());
-				return listener.processRequest(correlationId,message,requestContext);
-			} finally {
-				Thread.currentThread().setContextClassLoader(callersClassLoader);
+			boolean registeredService = false;
+			synchronized (availableServices) {
+				registeredService = availableServices.contains(serviceName);
 			}
-		} catch (Throwable t) {
-			throw new RequestProcessorException("RequestProcessor ["+serviceName+"] caught exception",t);
+			if (registeredService==false) {
+				throw new DispatcherException("no service registered for ["+serviceName+"]");
+			}
+			return DllInstance.processRequest(serviceName, correlationId, message);
+		}
+		catch (Exception e) {
+			throw new DispatcherException("Error while processing service ["+serviceName+"]", e);
 		}
 	}
 
-	public void register(String name, RequestProcessor listener) throws DispatcherException {
-		synchronized (requestProcessorMap) {
-			requestProcessorMap.put(name, listener);
+	@Override
+	public void register(String serviceName, RequestProcessor listener) throws DispatcherException {
+		register(serviceName);
+	}
+
+	public void register(String serviceName) {
+		synchronized (availableServices) {
+			availableServices.add(serviceName);
 		}
 	}
 }
-

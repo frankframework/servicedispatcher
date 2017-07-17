@@ -30,4 +30,12 @@ public class DispatcherManagerFactory {
 	public static DispatcherManager getDispatcherManager() throws DispatcherException {
 		return DispatcherManagerImpl.getInstance();
 	}
+
+	public static DispatcherManager getDispatcherManager(String dispatcherType) throws DispatcherException {
+		if(dispatcherType.equalsIgnoreCase("dll")) {
+			return DllDispatcherManagerImpl.getInstance();
+		}
+		else
+			return getDispatcherManager();
+	}
 }

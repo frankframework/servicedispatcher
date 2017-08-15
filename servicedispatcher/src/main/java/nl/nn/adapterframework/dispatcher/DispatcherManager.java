@@ -29,7 +29,7 @@ public interface DispatcherManager {
 	/**
 	 * Execute a request on a registered {@link RequestProcessor}.
 	 * 
-	 * @param clientName			name of the RequestProcessor to proces the request on. Must match a name of a RequestProcessor {@link #register(String name, RequestProcessor listener) registered} with the DispatcherManager.
+	 * @param serviceName			name of the RequestProcessor to proces the request on. Must match a name of a RequestProcessor {@link #register(String name, RequestProcessor listener) registered} with the DispatcherManager.
 	 * @param correlationId			correlationId passed on to RequestProcessor. May be used to track processing of the message throug the business chain.  
 	 * @param message				main message passed on to RequestProcessor. 
 	 * @param requestContext		requestContext passed on to RequestProcessor. The requestContext may contain any object that is considered useful to pass on the the service called.
@@ -38,15 +38,15 @@ public interface DispatcherManager {
 	 * @throws RequestProcessorException
 	 * 								wrapped exceptions originating from RequestProcessor.
 	 */
-	public String processRequest(String clientName, String correlationId, String message, HashMap requestContext) throws DispatcherException, RequestProcessorException;
+	public String processRequest(String serviceName, String correlationId, String message, HashMap requestContext) throws DispatcherException, RequestProcessorException;
 
 	/**
 	 * Execute a request on a registered {@link RequestProcessor}.
 	 * The correlationId is set to null.
 	 * 
-	 * @see   #processRequest(String clientName, String correlationId, String message, HashMap requestContext) 
+	 * @see   #processRequest(String serviceName, String correlationId, String message, HashMap requestContext) 
 	 * 
-	 * @param clientName			name of the RequestProcessor to proces the request on.
+	 * @param serviceName			name of the RequestProcessor to proces the request on.
 	 * @param message				main message passed on to RequestProcessor.
 	 * @param requestContext		requestContext passed on to RequestProcessor.
 	 * @return						result of RequestProcessor
@@ -54,22 +54,22 @@ public interface DispatcherManager {
 	 * @throws RequestProcessorException
 	 * 								wrapped exceptions originating from RequestProcessor.
 	 */
-	public String processRequest(String clientName, String message, HashMap requestContext) throws DispatcherException, RequestProcessorException;
+	public String processRequest(String serviceName, String message, HashMap requestContext) throws DispatcherException, RequestProcessorException;
 
 	/**
 	 * Execute a request on a registered {@link RequestProcessor}. 
 	 * The correlationId and requestContext are set to null.
 	 * 
-	 * @see   #processRequest(String clientName, String correlationId, String message, HashMap requestContext) 
+	 * @see   #processRequest(String serviceName, String correlationId, String message, HashMap requestContext) 
 	 * 
-	 * @param clientName			name of the RequestProcessor to proces the request on.
+	 * @param serviceName			name of the RequestProcessor to proces the request on.
 	 * @param message				message passed on to RequestProcessor.
 	 * @return						result of RequestProcessor.
 	 * @throws DispatcherException	thrown if RequestProcessor cannot be found, or other Dispatcher related problems.
 	 * @throws RequestProcessorException
 	 * 								wrapped exceptions originating from RequestProcessor.
 	 */
-	public String processRequest(String clientName, String message) throws DispatcherException, RequestProcessorException;
+	public String processRequest(String serviceName, String message) throws DispatcherException, RequestProcessorException;
 
 	/**
 	 * Register a {@link RequestProcessor} under a name. 
@@ -77,5 +77,5 @@ public interface DispatcherManager {
 	 * @param listener
 	 * @throws DispatcherException
 	 */
-	public void register(String name, RequestProcessor listener) throws DispatcherException;
+	public void register(String serviceName, RequestProcessor listener) throws DispatcherException;
 }

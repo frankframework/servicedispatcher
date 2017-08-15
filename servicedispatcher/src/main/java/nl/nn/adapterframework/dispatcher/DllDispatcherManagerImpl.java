@@ -24,6 +24,12 @@ import java.util.StringTokenizer;
 
 import nl.nn.adapterframework.dispatcher.DispatcherException;
 
+/**
+ * Actual implementation of {@link DispatcherManager}.
+ * 
+ * @author	Niels Meijer
+ * @since	v1.4
+ */
 public class DllDispatcherManagerImpl implements DispatcherManager {
 
 	private DllDispatcherManagerInterface DllInstance;

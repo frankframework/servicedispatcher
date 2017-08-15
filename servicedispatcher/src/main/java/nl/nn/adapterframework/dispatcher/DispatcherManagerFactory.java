@@ -20,7 +20,6 @@ package nl.nn.adapterframework.dispatcher;
  * 
  * @author  Gerrit van Brakel
  * @since   Ibis 4.4.5
- * @version $Id: DispatcherManagerFactory.java,v 1.1 2007/04/25 15:38:53 europe\L190409 Exp $
  */
 public class DispatcherManagerFactory {
 

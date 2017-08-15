@@ -22,7 +22,6 @@ import java.util.HashMap;
  * 
  * @author  Gerrit van Brakel
  * @since   Ibis 4.4.5
- * @version $Id: RequestProcessor.java,v 1.2 2007/10/16 15:11:21 europe\L190409 Exp $
  */
 public interface RequestProcessor {
 
@@ -30,7 +29,7 @@ public interface RequestProcessor {
 	 * Called by {@link DispatcherManager} to execute a request.
 	 * 
 	 * @param correlationId     String to identify the request 
-	 * @param message			Acutal message to be processed, mostly XML
+	 * @param message			Actual message to be processed, mostly XML
 	 * @param requestContext    Map of name value pairs, to assist in the processing of the message. 
 	 * 							Values can be Strings or any other Java object, as required by the processor.
 	 * 							Upon return (even in the case of an exception), values may be set by the processor.

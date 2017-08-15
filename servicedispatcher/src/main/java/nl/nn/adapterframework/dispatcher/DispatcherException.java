@@ -16,11 +16,10 @@
 package nl.nn.adapterframework.dispatcher;
 
 /**
- * Exception signalling problems in the DispatcherManager. 
+ * Exception signaling problems in the DispatcherManager. 
  * 
  * @author  Gerrit van Brakel
  * @since   Ibis 4.4.5
- * @version $Id: DispatcherException.java,v 1.1 2007/04/25 15:38:53 europe\L190409 Exp $
  */
 public class DispatcherException extends Exception {
 

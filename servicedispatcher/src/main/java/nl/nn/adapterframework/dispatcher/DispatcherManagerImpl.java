@@ -19,15 +19,12 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map.Entry;
 
 /**
  * Actual implementation of {@link DispatcherManager}.
  * 
  * @author  Gerrit van Brakel
- * @version $Id: DispatcherManagerImpl.java,v 1.3 2011/07/18 08:33:01 L190409 Exp $
  */
 class DispatcherManagerImpl implements DispatcherManager {
 

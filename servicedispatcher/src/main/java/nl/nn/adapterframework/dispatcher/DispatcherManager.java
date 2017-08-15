@@ -19,19 +19,18 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * DispatcherManager allows to register {@link RequestProcessor}s by name, and to excecute requests via them.  
+ * DispatcherManager allows to register {@link RequestProcessor}s by name, and to execute requests via them.  
  * 
- * @author  Gerrit van Brakel
- * @since   Ibis 4.4.5
- * @version $Id: DispatcherManager.java,v 1.1 2007/04/25 15:38:53 europe\L190409 Exp $
+ * @author	Gerrit van Brakel
+ * @since	Ibis 4.4.5
  */
 public interface DispatcherManager {
 
 	/**
 	 * Execute a request on a registered {@link RequestProcessor}.
 	 * 
-	 * @param serviceName			name of the RequestProcessor to proces the request on. Must match a name of a RequestProcessor {@link #register(String name, RequestProcessor listener) registered} with the DispatcherManager.
-	 * @param correlationId			correlationId passed on to RequestProcessor. May be used to track processing of the message throug the business chain.  
+	 * @param serviceName			name of the RequestProcessor to process the request on. Must match a name of a RequestProcessor {@link #register(String name, RequestProcessor listener) registered} with the DispatcherManager.
+	 * @param correlationId			correlationId passed on to RequestProcessor. May be used to track processing of the message through the business chain.  
 	 * @param message				main message passed on to RequestProcessor. 
 	 * @param requestContext		requestContext passed on to RequestProcessor. The requestContext may contain any object that is considered useful to pass on the the service called.
 	 * @return						result of RequestProcessor
@@ -47,7 +46,7 @@ public interface DispatcherManager {
 	 * 
 	 * @see   #processRequest(String serviceName, String correlationId, String message, HashMap requestContext) 
 	 * 
-	 * @param serviceName			name of the RequestProcessor to proces the request on.
+	 * @param serviceName			name of the RequestProcessor to process the request on.
 	 * @param message				main message passed on to RequestProcessor.
 	 * @param requestContext		requestContext passed on to RequestProcessor.
 	 * @return						result of RequestProcessor
@@ -63,7 +62,7 @@ public interface DispatcherManager {
 	 * 
 	 * @see   #processRequest(String serviceName, String correlationId, String message, HashMap requestContext) 
 	 * 
-	 * @param serviceName			name of the RequestProcessor to proces the request on.
+	 * @param serviceName			name of the RequestProcessor to process the request on.
 	 * @param message				message passed on to RequestProcessor.
 	 * @return						result of RequestProcessor.
 	 * @throws DispatcherException	thrown if RequestProcessor cannot be found, or other Dispatcher related problems.

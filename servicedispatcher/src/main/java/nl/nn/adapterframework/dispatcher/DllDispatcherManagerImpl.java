@@ -149,4 +149,16 @@ public class DllDispatcherManagerImpl implements DispatcherManager {
 			availableServices.add(serviceName);
 		}
 	}
+
+	public void unregister(String serviceName) {
+		synchronized (availableServices) {
+			availableServices.remove(serviceName);
+		}
+	}
+
+	public List<String> getRegisteredServices() {
+		synchronized (availableServices) {
+			return availableServices;
+		}
+	}
 }

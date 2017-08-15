@@ -16,6 +16,7 @@
 package nl.nn.adapterframework.dispatcher;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * DispatcherManager allows to register {@link RequestProcessor}s by name, and to excecute requests via them.  
@@ -78,4 +79,16 @@ public interface DispatcherManager {
 	 * @throws DispatcherException
 	 */
 	public void register(String serviceName, RequestProcessor listener) throws DispatcherException;
+
+	/**
+	 * Unregisters a {@link RequestProcessor} under a name. 
+	 * @param name
+	 * @throws DispatcherException
+	 */
+	public void unregister(String serviceName) throws DispatcherException;
+
+	/**
+	 * Returns a list with all registered serviceNames. 
+	 */
+	public List<String> getRegisteredServices();
 }

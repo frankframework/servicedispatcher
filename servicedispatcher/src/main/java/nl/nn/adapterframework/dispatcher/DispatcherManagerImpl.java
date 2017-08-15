@@ -17,7 +17,11 @@ package nl.nn.adapterframework.dispatcher;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map.Entry;
 
 /**
  * Actual implementation of {@link DispatcherManager}.
@@ -94,7 +98,7 @@ class DispatcherManagerImpl implements DispatcherManager {
 	private DispatcherManagerImpl() {
 	}
 
-	private HashMap requestProcessorMap = new HashMap();
+	private HashMap<String, RequestProcessor> requestProcessorMap = new HashMap<String, RequestProcessor>();
 
 	public String processRequest(String serviceName, String message) throws DispatcherException, RequestProcessorException{
 		return processRequest(serviceName, null, message, null);
@@ -129,9 +133,22 @@ class DispatcherManagerImpl implements DispatcherManager {
 		}
 	}
 
-	public void register(String name, RequestProcessor listener) throws DispatcherException {
+	public void register(String serviceName, RequestProcessor listener) throws DispatcherException {
 		synchronized (requestProcessorMap) {
-			requestProcessorMap.put(name, listener);
+			requestProcessorMap.put(serviceName, listener);
+		}
+	}
+
+	public void unregister(String serviceName) {
+		synchronized (requestProcessorMap) {
+			if(requestProcessorMap.containsKey(serviceName))
+				requestProcessorMap.remove(serviceName);
+		}
+	}
+
+	public List<String> getRegisteredServices() {
+		synchronized (requestProcessorMap) {
+			return new ArrayList<String>(requestProcessorMap.keySet());
 		}
 	}
 }

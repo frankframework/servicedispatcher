@@ -20,9 +20,8 @@ package nl.nn.adapterframework.dispatcher;
  * 
  * @author  Gerrit van Brakel
  * @since   IbisServiceDispatcher 1.1
- * @version $Id: Version.java,v 1.3 2011/07/18 08:33:54 L190409 Exp $
  */
 public class Version {
 
-	public static String version = "IbisServiceDispatcher 1.3 - 20110718-1035";
+	public static String version = "IbisServiceDispatcher 1.4";
 }

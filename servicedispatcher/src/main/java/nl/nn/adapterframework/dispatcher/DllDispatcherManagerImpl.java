@@ -15,6 +15,7 @@
 */
 package nl.nn.adapterframework.dispatcher;
 
+import java.io.File;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.ArrayList;
@@ -33,7 +34,9 @@ import nl.nn.adapterframework.dispatcher.DispatcherException;
 public class DllDispatcherManagerImpl implements DispatcherManager {
 
 	private DllDispatcherManagerInterface DllInstance;
-	private static final boolean DEBUG=true;
+	private static final String PROPERTYPREFIX = "ibis-servicedispatcher";
+	private static final boolean DEBUG = Boolean.parseBoolean(System.getProperty(PROPERTYPREFIX+".debug", "false"));
+	private static final String dlls = System.getProperty(PROPERTYPREFIX+".dlls", "");
 	private List<String> availableServices = new ArrayList<String>();
 
 	/**
@@ -68,9 +71,9 @@ public class DllDispatcherManagerImpl implements DispatcherManager {
 					// to the object.
 					result = (DispatcherManager) Proxy.newProxyInstance(myClassLoader, new Class[] { DispatcherManager.class },
 																			new PassThroughProxyHandler(otherDispatcherManager));
-					if (DEBUG) System.out.println("DispatcherManagerImpl INFO  created DispatcherManager using ClassLoader ["+ parentclassLoader.getClass().getName() + "] that is parent of ["+ classLoader.getClass().getName() + "]");
+					if (DEBUG) System.out.println("DllDispatcherManagerImpl INFO  created DispatcherManager using ClassLoader ["+ parentclassLoader.getClass().getName() + "] that is parent of ["+ classLoader.getClass().getName() + "]");
 				} catch (Exception e) {
-					if (DEBUG) System.out.println("DispatcherManagerImpl DEBUG "+ e.getClass().getName()+ " when trying to load DispatcherManager using ClassLoader ["+ parentclassLoader.getClass().getName() + "] that is parent of ["+ classLoader.getClass().getName() + "]: "+ e.getMessage());
+					if (DEBUG) System.out.println("DllDispatcherManagerImpl DEBUG "+ e.getClass().getName()+ " when trying to load DispatcherManager using ClassLoader ["+ parentclassLoader.getClass().getName() + "] that is parent of ["+ classLoader.getClass().getName() + "]: "+ e.getMessage());
 					return null;
 				}
 			}
@@ -102,13 +105,30 @@ public class DllDispatcherManagerImpl implements DispatcherManager {
 		try {
 			Class<?> dll = Class.forName("DllDispatcherManager");
 			DllInstance = (DllDispatcherManagerInterface) dll.newInstance();
+
+			if(dlls.isEmpty())
+				throw new DispatcherException("No DLL found, has the property ["+PROPERTYPREFIX+".dlls] been set?");
+
+			StringTokenizer st = new StringTokenizer(dlls, ",");
+			while (st.hasMoreTokens()) {
+				String path = st.nextToken();
+				File lib = new File(path);
+				String absPath = lib.getAbsolutePath();
+				absPath = absPath.replace(lib.getName(), "");
+
+				if(!lib.isFile())
+					throw new DispatcherException("File ["+lib.getName()+"] not found in path ["+absPath+"]");
+
+				DllInstance.registerDll(lib.getAbsolutePath());
+				if (DEBUG) System.out.println("Registered dll ["+lib.getName()+"] from path ["+absPath+"]");
+			}
 		}
 		catch (Exception e) {
-			throw new DispatcherException("Failed to initialize DllDispatcherManager!", e);
+			throw new DispatcherException("Failed to initialize DllDispatcherManager", e);
 		}
 		String services = DllInstance.getServices();
 		if(!services.isEmpty()) {
-			StringTokenizer st = new StringTokenizer(services, ",");  
+			StringTokenizer st = new StringTokenizer(services, ",");
 			while (st.hasMoreTokens()) {
 				register(st.nextToken());
 			}

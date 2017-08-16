@@ -24,4 +24,11 @@ public interface DllDispatcherManagerInterface {
 	 * @return						available services
 	 */
 	public String getServices();
+
+	/**
+	 * Registers a DLL in the DllDispatchManager
+	 * 
+	 * @param						name of the DLL to load
+	 */
+	public void registerDll(String dll);
 }

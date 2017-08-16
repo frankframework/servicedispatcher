@@ -8,7 +8,7 @@ public class DllDispatcherManager implements DllDispatcherManagerInterface {
 	@Override
 	native public String getServices();
 
-	static {
-		System.loadLibrary("Wrapper");
+	public void registerDll(String dll) {
+		System.load(dll);
 	}
 }

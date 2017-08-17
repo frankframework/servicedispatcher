@@ -18,9 +18,9 @@ package nl.nn.adapterframework.dispatcher;
 import java.io.File;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 import nl.nn.adapterframework.dispatcher.DispatcherException;
@@ -37,7 +37,7 @@ public class DllDispatcherManagerImpl implements DispatcherManager {
 	private static final String PROPERTYPREFIX = "ibis-servicedispatcher";
 	private static final boolean DEBUG = Boolean.parseBoolean(System.getProperty(PROPERTYPREFIX+".debug", "false"));
 	private static final String dlls = System.getProperty(PROPERTYPREFIX+".dlls", "");
-	private List<String> availableServices = new ArrayList<String>();
+	private Set<String> availableServices = new HashSet<String>();
 
 	/**
 	 *  This is effectively an instance of this class (although actually it may be instead a
@@ -182,7 +182,7 @@ public class DllDispatcherManagerImpl implements DispatcherManager {
 		}
 	}
 
-	public List<String> getRegisteredServices() {
+	public Set<String> getRegisteredServices() {
 		synchronized (availableServices) {
 			return availableServices;
 		}

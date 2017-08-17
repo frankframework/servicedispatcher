@@ -17,9 +17,8 @@ package nl.nn.adapterframework.dispatcher;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Set;
 
 /**
  * Actual implementation of {@link DispatcherManager}.
@@ -143,9 +142,9 @@ class DispatcherManagerImpl implements DispatcherManager {
 		}
 	}
 
-	public List<String> getRegisteredServices() {
+	public Set<String> getRegisteredServices() {
 		synchronized (requestProcessorMap) {
-			return new ArrayList<String>(requestProcessorMap.keySet());
+			return requestProcessorMap.keySet();
 		}
 	}
 }

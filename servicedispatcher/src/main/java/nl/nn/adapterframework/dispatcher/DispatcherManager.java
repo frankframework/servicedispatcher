@@ -73,7 +73,7 @@ public interface DispatcherManager {
 
 	/**
 	 * Register a {@link RequestProcessor} under a name.
-	 * @param name
+	 * @param serviceName
 	 * @param listener
 	 * @throws DispatcherException
 	 */
@@ -81,7 +81,7 @@ public interface DispatcherManager {
 
 	/**
 	 * Unregisters a {@link RequestProcessor} under a name.
-	 * @param name
+	 * @param serviceName
 	 * @throws DispatcherException
 	 */
 	public void unregister(String serviceName) throws DispatcherException;

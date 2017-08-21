@@ -11,9 +11,9 @@ public interface DllDispatcherManagerInterface {
 	/**
 	 * Execute a request on a registered service.
 	 * 
-	 * @param serviceName			name of the RequestProcessor to process the request on. Must match a name of a RequestProcessor {@link #register(String name, RequestProcessor listener) registered} with the DllDispatcherManager.
+	 * @param serviceName			name of the RequestProcessor to process the request on. Must match a name of a service {@link #registerDll(String name) registered} with the DllDispatcherManager.
 	 * @param correlationId			correlationId passed on to RequestProcessor. May be used to track processing of the message through the business chain.  
-	 * @param message				main message passed on to RequestProcessor. 
+	 * @param requestMessage		main message passed on to RequestProcessor. 
 	 * @return						result of RequestProcessor
 	 */
 	public String processRequest(String serviceName, String correlationId, String requestMessage);
@@ -28,7 +28,7 @@ public interface DllDispatcherManagerInterface {
 	/**
 	 * Registers a DLL in the DllDispatchManager
 	 * 
-	 * @param						name of the DLL to load
+	 * @param dll					name of the DLL to load
 	 */
 	public void registerDll(String dll);
 }

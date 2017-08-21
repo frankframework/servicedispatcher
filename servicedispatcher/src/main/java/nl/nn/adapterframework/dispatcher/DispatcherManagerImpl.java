@@ -17,6 +17,7 @@ package nl.nn.adapterframework.dispatcher;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.security.AccessController;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -114,13 +115,19 @@ class DispatcherManagerImpl implements DispatcherManager {
 			throw new DispatcherException("no RequestProcessor registered for ["+serviceName+"]");
 		}
 		try {
-			ClassLoader callersClassLoader = Thread.currentThread().getContextClassLoader(); 
+			ClassLoader callersClassLoader = Thread.currentThread().getContextClassLoader();
 			try {
 				// set contextClassLoader, in order to really switch to the application called.
 				// This enables new classes to be loaded from proxy's own classpath, enabling
 				// Xalan extension functions, like 'build-node()' 
 				Thread.currentThread().setContextClassLoader(listener.getClass().getClassLoader());
-				return listener.processRequest(correlationId,message,requestContext);
+
+				RunResult result = AccessController.doPrivileged(new PrivilegedActionWrapper(listener, correlationId, message, requestContext));
+				if(result.hasException()) {
+					throw new RequestProcessorException("RequestProcessor ["+serviceName+"] failed to execute message with privileged action", result.getException());
+				}
+
+				return result.getResult();
 			} finally {
 				Thread.currentThread().setContextClassLoader(callersClassLoader);
 			}

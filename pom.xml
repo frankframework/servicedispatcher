@@ -4,7 +4,7 @@
   <groupId>org.ibissource</groupId>
   <artifactId>service-dispatcher-parent</artifactId>
   <packaging>pom</packaging>
-  <version>1.5</version>
+  <version>1.6-SNAPSHOT</version>
 
   <modules>
     <module>servicedispatcher</module>
@@ -135,7 +135,7 @@
     <connection>scm:git:git://github.com/ibissource/ibis-servicedispatcher.git</connection>
     <developerConnection>scm:git:https://github.com/ibissource/ibis-servicedispatcher.git</developerConnection>
     <url>https://github.com/ibissource/ibis-servicedispatcher</url>
-    <tag>v1.5</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <distributionManagement>

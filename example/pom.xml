@@ -2,12 +2,13 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>nl.nn.adapterframework</groupId>
+    <groupId>org.ibissource</groupId>
     <artifactId>service-dispatcher-parent</artifactId>
     <version>1.5-SNAPSHOT</version>
   </parent>
 
   <artifactId>service-dispatcher-example</artifactId>
+  <name>Ibis Servicedispatcher Example</name>
 
   <dependencies>
     <dependency>

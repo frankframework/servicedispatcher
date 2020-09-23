@@ -1,9 +1,9 @@
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/ibissource/ibis-servicedispatcher/blob/master/LICENSE)
+[![Maven Central](https://img.shields.io/maven-central/v/org.ibissource/service-dispatcher-parent.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:org.ibissource)
 [![Build Status](https://travis-ci.org/ibissource/ibis-servicedispatcher.png?branch=master)](https://travis-ci.org/ibissource/ibis-servicedispatcher)
+
 ibis-servicedispatcher
 =======================
-Releases can be found here:
-https://github.com/ibissource/mvn-repo/tree/master/releases/nl/nn/adapterframework/service-dispatcher
-(released with mvn release:prepare release:perform)
 
 
 The IbisServiceDispatcher can be used to communicate between applications that reside in the same

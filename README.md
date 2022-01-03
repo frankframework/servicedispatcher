@@ -7,7 +7,7 @@ ibis-servicedispatcher
 
 
 The IbisServiceDispatcher can be used to communicate between applications that reside in the same
-JVM. 
+JVM or to communicate with a DLL.
 It was developed to provide a means of communication in native Java between the Everest 
 Knowledge Framework (EKF) and the adapters build using the Ibis Framework.
 

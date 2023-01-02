@@ -21,7 +21,7 @@ on DispatcherManagerFactory. Then:
   register(RequestProcessor)</li>
 </ul>
 
-<h2>ibis-configuration</h2>
+<h2>Configuration</h2>
 Use the following code in an Ibis-configuration to provide a service using the service dispatcher:<br>
 (Any parameter passed in the requestContext is made available to the Adapter as a PipeLineSession-variable)
 <pre>
@@ -42,9 +42,22 @@ To call a service provided by the service dispatcher from within a Ibis-configur
       serviceName="nameOfService" &gt;
       &lt;param name="param1" value="valueOfThisParameter"/&gt;
     &lt;sender&gt;
-    &lt;forward name="success" path="READY"/&gt;
   &lt;/pipe&gt;
 </pre>
+<br>
+When using the dispatcher to call system libraries, you have to add the `dispatchType="DLL"` attribute.
+<pre>
+  &lt;pipe name="PipeCallingService"&gt;
+    &lt;sender 
+      className="nl.nn.adapterframework.pipes.IbisJavaSender" 
+      dispatchType="DLL"
+      serviceName="nameOfService" &gt;
+    &lt;sender&gt;
+  &lt;/pipe&gt;
+</pre>
+NOTE: In order te register system libraries in the Service Dispatcher you have to set the system property `ibis-servicedispatcher.dlls=path/to/library.dll`
+<br>
+<br>
 
 <h2>operation</h2>
 The IbisServiceDispatcher provides a map of RequestProcessors. This map is created by applications

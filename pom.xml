@@ -16,33 +16,27 @@
 
   <name>Ibis Servicedispatcher Parent</name>
   <description>Dispatches requests between (compatible) applications running on the same application server</description>
-  <url>https://ibissource.org/</url>
+  <url>https://frankframework.org</url>
 
   <organization>
-    <name>Ibissource.org</name>
-    <url>https://ibissource.org</url>
+    <name>frankframework.org</name>
+    <url>https://frankframework.org</url>
   </organization>
 
   <licenses>
     <license>
       <name>Apache License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
       <distribution>manual</distribution>
     </license>
   </licenses>
 
   <developers>
     <developer>
-      <name>Gerrit van Brakel</name>
-      <email>gerrit@ibissource.org</email>
-      <organization>Ibissource</organization>
-      <organizationUrl>https://ibissource.org</organizationUrl>
-    </developer>
-    <developer>
       <name>Niels Meijer</name>
-      <email>niels@ibissource.org</email>
-      <organization>Ibissource</organization>
-      <organizationUrl>https://ibissource.org</organizationUrl>
+      <email>niels@frankframework.org</email>
+      <organization>Frank!Framework</organization>
+      <organizationUrl>https://frankframework.org</organizationUrl>
     </developer>
   </developers>
 
@@ -132,26 +126,11 @@
   </reporting>
 
   <scm>
-    <connection>scm:git:git://github.com/ibissource/ibis-servicedispatcher.git</connection>
-    <developerConnection>scm:git:https://github.com/ibissource/ibis-servicedispatcher.git</developerConnection>
-    <url>https://github.com/ibissource/ibis-servicedispatcher</url>
+    <connection>scm:git:git://github.com/frankframework/servicedispatcher.git</connection>
+    <developerConnection>scm:git:https://github.com/frankframework/servicedispatcher.git</developerConnection>
+    <url>https://github.com/frankframework/servicedispatcher</url>
     <tag>HEAD</tag>
   </scm>
-
-  <distributionManagement>
-    <repository>
-      <id>ossrh</id>
-      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-    </repository>
-    <snapshotRepository>
-      <id>ossrh</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-    </snapshotRepository>
-    <site>
-      <id>www.ibissource.org</id>
-      <url>file:target/site-deploy</url>
-    </site>
-  </distributionManagement>
 
   <profiles>
     <profile>

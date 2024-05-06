@@ -157,13 +157,13 @@
       </repositories>
     </profile>
     <profile>
-      <id>release</id>
+      <id>sign</id>
       <build>
         <plugins>
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-gpg-plugin</artifactId>
-            <version>1.6</version>
+            <version>3.2.4</version>
             <configuration>
               <passphrase>${gpg.passphrase}</passphrase>
               <gpgArguments>
@@ -184,6 +184,13 @@
               </execution>
             </executions>
           </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>ossrh</id>
+      <build>
+        <plugins>
           <plugin>
             <groupId>org.sonatype.plugins</groupId>
             <artifactId>nexus-staging-maven-plugin</artifactId>
@@ -197,9 +204,6 @@
           </plugin>
         </plugins>
       </build>
-    </profile>
-    <profile>
-      <id>ossrh</id>
       <distributionManagement>
         <repository>
           <id>ossrh</id>
